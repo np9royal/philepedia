@@ -57,18 +57,18 @@ const canonicalUrl = canonical ?? Astro.url.href;
     <a href="#content" class="phile-skip-link">Skip to content</a>
 
     <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(211,176,106,0.12),transparent_26%),radial-gradient(circle_at_84%_14%,rgba(134,183,255,0.12),transparent_22%),linear-gradient(180deg,rgba(10,10,16,0.5),rgba(5,5,9,0.92))]"></div>
-      <div class="absolute left-[-12%] top-[-18%] h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(211,176,106,0.16),transparent_68%)] blur-3xl"></div>
-      <div class="absolute right-[-10%] top-[12%] h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(134,183,255,0.16),transparent_68%)] blur-3xl"></div>
-      <div class="absolute bottom-[-16%] left-1/3 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(141,102,188,0.14),transparent_70%)] blur-3xl"></div>
-      <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.022)_1px,transparent_1px)] bg-[size:46px_46px] opacity-[0.09] [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(211,176,106,0.08),transparent_28%),radial-gradient(circle_at_84%_14%,rgba(134,183,255,0.08),transparent_24%),linear-gradient(180deg,rgba(10,10,16,0.42),rgba(5,5,9,0.92))]"></div>
+      <div class="absolute left-[-12%] top-[-18%] h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(211,176,106,0.11),transparent_68%)] blur-3xl"></div>
+      <div class="absolute right-[-10%] top-[12%] h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(134,183,255,0.11),transparent_68%)] blur-3xl"></div>
+      <div class="absolute bottom-[-16%] left-1/3 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(141,102,188,0.09),transparent_70%)] blur-3xl"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.024)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.016)_1px,transparent_1px)] bg-[size:52px_52px] opacity-[0.06] [mask-image:radial-gradient(circle_at_center,black,transparent_80%)]"></div>
     </div>
 
     <div class="relative flex min-h-screen flex-col">
       <SiteHeader />
 
       <main id="content" class="relative z-10 flex-1">
-        <div class="mx-auto w-full max-w-7xl px-6 pb-16 pt-4 sm:px-8 lg:px-10">
+        <div class="mx-auto w-full max-w-7xl px-6 pb-18 pt-6 sm:px-8 sm:pb-20 sm:pt-7 lg:px-10 lg:pb-24 lg:pt-8">
           <slot />
         </div>
       </main>

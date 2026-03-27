@@ -1,20 +1,33 @@
 ---
-import { particleWords } from "./phileSeeds";
+const motes = [
+	{ left: 11, top: 18, size: 18, blur: 0, duration: 18, delay: 0.2, opacity: 0.38 },
+	{ left: 78, top: 14, size: 22, blur: 2, duration: 22, delay: 1.4, opacity: 0.3 },
+	{ left: 22, top: 70, size: 28, blur: 4, duration: 26, delay: 0.8, opacity: 0.24 },
+	{ left: 84, top: 66, size: 20, blur: 1, duration: 20, delay: 1.8, opacity: 0.28 },
+	{ left: 48, top: 32, size: 14, blur: 0, duration: 16, delay: 1.1, opacity: 0.22 },
+	{ left: 60, top: 80, size: 16, blur: 2, duration: 24, delay: 2.2, opacity: 0.2 }
+];
 ---
 
 <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true" data-phile-particles>
-	<div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_32%),radial-gradient(circle_at_20%_20%,_rgba(142,170,255,0.22),_transparent_28%),radial-gradient(circle_at_80%_20%,_rgba(255,195,130,0.14),_transparent_24%),radial-gradient(circle_at_50%_80%,_rgba(85,214,190,0.12),_transparent_30%)] opacity-90"></div>
-	<div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),transparent_18%,transparent_82%,rgba(255,255,255,0.04))]"></div>
-	<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0,rgba(7,8,13,0.18)_62%,rgba(7,8,13,0.82)_100%)]"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_32%),radial-gradient(circle_at_20%_20%,_rgba(142,170,255,0.18),_transparent_30%),radial-gradient(circle_at_80%_20%,_rgba(255,195,130,0.11),_transparent_26%),radial-gradient(circle_at_50%_80%,_rgba(85,214,190,0.09),_transparent_32%)] opacity-90"></div>
+	<div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),transparent_22%,transparent_80%,rgba(255,255,255,0.03))]"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0,rgba(7,8,13,0.2)_60%,rgba(7,8,13,0.86)_100%)]"></div>
 
-	{particleWords.map((particle) => (
-		<span
-			class="home-particle absolute select-none rounded-full border border-white/10 bg-white/6 px-3 py-1 font-medium tracking-[0.26em] text-white/70 shadow-[0_0_30px_rgba(255,255,255,0.08)] backdrop-blur-md"
-			style={`left:${particle.x}%; top:${particle.y}%; --delay:${particle.delay}s; --duration:${particle.duration}s; --size:${particle.size};`}
-		>
-			{particle.label}
-		</span>
-	))}
+	<div class="absolute inset-0 opacity-90">
+		{motes.map((mote) => (
+			<span
+				class="home-mote absolute rounded-full"
+				style={`left:${mote.left}%; top:${mote.top}%; width:${mote.size}px; height:${mote.size}px; --delay:${mote.delay}s; --duration:${mote.duration}s; --blur:${mote.blur}px; --opacity:${mote.opacity};`}
+			/>
+		))}
+	</div>
+
+	<div class="absolute inset-0">
+		<span class="home-line home-line-a" />
+		<span class="home-line home-line-b" />
+		<span class="home-line home-line-c" />
+	</div>
 </div>
 
 <script is:inline>
@@ -62,6 +75,54 @@ import { particleWords } from "./phileSeeds";
 			home-glow 8s ease-in-out var(--delay) infinite;
 	}
 
+	.home-mote {
+		background:
+			radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 42%),
+			radial-gradient(circle, rgba(134, 183, 255, 0.34), rgba(134, 183, 255, 0) 70%);
+		filter: blur(var(--blur)) saturate(120%);
+		opacity: var(--opacity);
+		transform: translate3d(calc(var(--mx, 0px) * 0.01), calc(var(--my, 0px) * 0.01), 0);
+		animation:
+			home-drift var(--duration) ease-in-out var(--delay) infinite alternate,
+			home-breathe 7s ease-in-out var(--delay) infinite;
+	}
+
+	.home-line {
+		position: absolute;
+		border-radius: 9999px;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+		filter: blur(0.2px);
+		opacity: 0.55;
+		transform: translate3d(calc(var(--mx, 0px) * 0.015), calc(var(--my, 0px) * 0.015), 0);
+	}
+
+	.home-line-a {
+		left: 9%;
+		top: 26%;
+		width: 28%;
+		height: 1px;
+		transform: rotate(-8deg) translate3d(calc(var(--mx, 0px) * 0.015), calc(var(--my, 0px) * 0.015), 0);
+		animation: home-sweep 18s ease-in-out infinite;
+	}
+
+	.home-line-b {
+		right: 10%;
+		top: 18%;
+		width: 22%;
+		height: 1px;
+		transform: rotate(11deg) translate3d(calc(var(--mx, 0px) * 0.015), calc(var(--my, 0px) * 0.015), 0);
+		animation: home-sweep 22s ease-in-out 1.2s infinite;
+	}
+
+	.home-line-c {
+		left: 18%;
+		bottom: 16%;
+		width: 24%;
+		height: 1px;
+		transform: rotate(6deg) translate3d(calc(var(--mx, 0px) * 0.015), calc(var(--my, 0px) * 0.015), 0);
+		animation: home-sweep 20s ease-in-out 2s infinite;
+	}
+
 	@keyframes home-float {
 		from {
 			transform: translate3d(calc(var(--mx, 0px) * 0.02), calc(var(--my, 0px) * 0.02), 0)
@@ -87,8 +148,46 @@ import { particleWords } from "./phileSeeds";
 		}
 	}
 
+	@keyframes home-drift {
+		from {
+			transform: translate3d(calc(var(--mx, 0px) * 0.01), calc(var(--my, 0px) * 0.01), 0)
+				translate3d(0, 0, 0);
+		}
+
+		to {
+			transform: translate3d(calc(var(--mx, 0px) * 0.01 + 8px), calc(var(--my, 0px) * 0.01 - 10px), 0)
+				translate3d(0, 0, 0);
+		}
+	}
+
+	@keyframes home-breathe {
+		0%,
+		100% {
+			opacity: 0.18;
+		}
+
+		50% {
+			opacity: 0.42;
+		}
+	}
+
+	@keyframes home-sweep {
+		0%,
+		100% {
+			opacity: 0.16;
+			transform: scaleX(0.92);
+		}
+
+		50% {
+			opacity: 0.58;
+			transform: scaleX(1.06);
+		}
+	}
+
 	@media (prefers-reduced-motion: reduce) {
-		.home-particle {
+		.home-particle,
+		.home-mote,
+		.home-line {
 			animation: none;
 		}
 	}

@@ -4,19 +4,19 @@
 
 :root {
   color-scheme: dark;
-  --phile-bg: #07070c;
-  --phile-bg-soft: #0e1018;
-  --phile-surface: rgba(16, 18, 28, 0.76);
-  --phile-surface-strong: rgba(23, 26, 39, 0.9);
-  --phile-border: rgba(255, 255, 255, 0.12);
-  --phile-border-strong: rgba(255, 255, 255, 0.18);
-  --phile-ink: #f4efe6;
-  --phile-ink-soft: rgba(244, 239, 230, 0.76);
-  --phile-muted: rgba(244, 239, 230, 0.56);
+  --phile-bg: #06070b;
+  --phile-bg-soft: #0d1117;
+  --phile-surface: rgba(15, 18, 26, 0.84);
+  --phile-surface-strong: rgba(22, 26, 36, 0.94);
+  --phile-border: rgba(255, 255, 255, 0.14);
+  --phile-border-strong: rgba(255, 255, 255, 0.2);
+  --phile-ink: #f7f2ea;
+  --phile-ink-soft: rgba(247, 242, 234, 0.82);
+  --phile-muted: rgba(247, 242, 234, 0.62);
   --phile-brass: #d3b06a;
   --phile-brass-soft: rgba(211, 176, 106, 0.2);
   --phile-blue: #86b7ff;
-  --phile-shadow: 0 26px 90px rgba(0, 0, 0, 0.42);
+  --phile-shadow: 0 24px 72px rgba(0, 0, 0, 0.38);
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-body: "Instrument Sans Variable", "Inter", system-ui, sans-serif;
 }
@@ -31,10 +31,10 @@ body {
   font-family: var(--font-body);
   color: var(--phile-ink);
   background:
-    radial-gradient(circle at top left, rgba(211, 176, 106, 0.1), transparent 28%),
-    radial-gradient(circle at 88% 12%, rgba(134, 183, 255, 0.12), transparent 24%),
-    radial-gradient(circle at 50% 100%, rgba(125, 89, 161, 0.14), transparent 30%),
-    linear-gradient(180deg, #090910 0%, #07070c 44%, #050509 100%);
+    radial-gradient(circle at 18% 14%, rgba(211, 176, 106, 0.08), transparent 24%),
+    radial-gradient(circle at 82% 10%, rgba(134, 183, 255, 0.08), transparent 22%),
+    radial-gradient(circle at 50% 100%, rgba(23, 61, 88, 0.14), transparent 34%),
+    linear-gradient(180deg, #090a10 0%, #06070b 46%, #050608 100%);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -51,20 +51,19 @@ body::after {
 
 body::before {
   background:
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.06), transparent 24%),
-    radial-gradient(circle at 80% 0%, rgba(211, 176, 106, 0.08), transparent 22%),
-    radial-gradient(circle at 85% 78%, rgba(134, 183, 255, 0.08), transparent 20%);
-  filter: blur(6px);
-  opacity: 0.9;
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.035), transparent 28%),
+    radial-gradient(circle at 82% 14%, rgba(211, 176, 106, 0.05), transparent 20%);
+  filter: blur(8px);
+  opacity: 0.58;
 }
 
 body::after {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 44px 44px, 44px 44px;
-  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.72), transparent 82%);
-  opacity: 0.16;
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 64px 64px, 64px 64px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.8), transparent 84%);
+  opacity: 0.08;
 }
 
 ::selection {
@@ -143,17 +142,17 @@ svg {
   content: "";
   position: absolute;
   inset: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.025);
   pointer-events: none;
 }
 
 .phile-shell-frame {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 12%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 14%);
 }
 
 .phile-prose {
   color: var(--phile-ink-soft);
-  line-height: 1.75;
+  line-height: 1.8;
 }
 
 .phile-prose strong {
@@ -178,7 +177,7 @@ svg {
 
 .phile-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
 }
 
 .phile-card {
@@ -188,7 +187,7 @@ svg {
   border-radius: 1.5rem;
   background: var(--phile-surface);
   box-shadow: var(--phile-shadow);
-  backdrop-filter: blur(22px);
+  backdrop-filter: blur(18px);
 }
 
 .phile-card::before {
@@ -196,10 +195,10 @@ svg {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 28%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 40%);
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.06), transparent 30%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 44%);
   pointer-events: none;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .phile-card-hover {
@@ -211,19 +210,19 @@ svg {
 }
 
 .phile-card-hover:hover {
-  transform: translateY(-2px);
-  border-color: rgba(211, 176, 106, 0.32);
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.52);
+  transform: translateY(-1px);
+  border-color: rgba(211, 176, 106, 0.26);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
 }
 
 .phile-grid {
   display: grid;
-  gap: 1rem;
+  gap: 0.9rem;
 }
 
 @media (min-width: 640px) {
   .phile-grid {
-    gap: 1.25rem;
+    gap: 1.1rem;
   }
 }
 
