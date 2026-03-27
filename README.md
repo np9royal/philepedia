@@ -22,8 +22,24 @@ Developed by [Naveen Purimittla](https://x.com/np9royal)
 - `npm run build` validates content, generates OG images, and builds production output
 - `npm run preview` previews the production build locally
 
+## Cloudflare Pages
+
+For Git-based deployment on Cloudflare Pages, use:
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Production branch: `main`
+
+Set these environment variables in Cloudflare Pages:
+
+- `SITE_URL` set to the production site URL, such as your `*.pages.dev` domain or custom domain
+- `PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` only if you want Cloudflare Web Analytics enabled
+
+If you prefer direct uploads with Wrangler, the repo already includes [`wrangler.toml`](/Users/naveenpurimittla/Downloads/np9royal/phile-w/wrangler.toml) pointing at the static build output. After building, deploy with `npx wrangler@latest pages deploy dist`.
+
 ## Notes
 
 - Source-of-truth product brief: `PHILEPEDIA_SPEC.md`
 - Launch content is curated in `src/content/philes`
 - `SITE_URL` can be provided at build time to override the default canonical site URL
+- GitHub Actions CI runs `npm run check` and `npm run build` on pushes and pull requests
