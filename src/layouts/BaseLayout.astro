@@ -39,6 +39,9 @@ const canonicalUrl = canonical ?? Astro.url.href;
     {canonical && <link rel="canonical" href={canonicalUrl} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <slot name="head" />
 
     <meta property="og:site_name" content="Philepedia" />
@@ -68,7 +71,7 @@ const canonicalUrl = canonical ?? Astro.url.href;
       <SiteHeader />
 
       <main id="content" class="relative z-10 flex-1">
-        <div class="mx-auto w-full max-w-7xl px-6 pb-18 pt-6 sm:px-8 sm:pb-20 sm:pt-7 lg:px-10 lg:pb-24 lg:pt-8">
+        <div class="mx-auto w-full max-w-7xl px-4 pb-14 pt-4 sm:px-8 sm:pb-20 sm:pt-7 lg:px-10 lg:pb-24 lg:pt-8">
           <slot />
         </div>
       </main>
