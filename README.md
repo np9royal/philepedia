@@ -2,9 +2,9 @@
 
 Philepedia is the internet's first beautifully crafted, immersive encyclopedia of "-phile" words. It is a static Astro experience focused on reverse discovery: users search for what they love and the site reveals the word that describes them.
 
-The first release targets 30 flagship philes with hand-curated references, distinctive color palettes, thematic motion, and fully prerendered detail pages. The product is designed as an editorial museum of passions rather than a flat dictionary.
+The first release now spans 60 flagship philes with hand-curated references, distinctive color palettes, thematic motion, and fully prerendered detail pages. The product is designed as an editorial museum of passions rather than a flat dictionary.
 
-Developed by [Naveen Purimittla](https://x.com/np9royal)
+Made with ❤️ by [Naveen Purimittla](https://x.com/np9royal)
 
 ## Current Scope
 

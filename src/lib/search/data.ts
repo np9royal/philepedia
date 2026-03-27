@@ -1,40 +1,8 @@
 import type { HeroStyle, PhileCategory, PhileEntry, PhileMood } from './types';
+import { PHILE_LAUNCH_PRIORITY_MAP } from '../../data/phile-launch-order';
 
 type PhileFrontmatter = Omit<PhileEntry, 'mood' | 'launchPriority'> & {
   status?: 'draft' | 'published';
-};
-
-const launchPriorityMap: Record<string, number> = {
-  pluviophile: 120,
-  bibliophile: 118,
-  selenophile: 115,
-  thalassophile: 114,
-  melophile: 112,
-  ailurophile: 110,
-  astraphile: 96,
-  pyrophile: 94,
-  astrophile: 92,
-  logophile: 90,
-  heliophile: 88,
-  ombrophile: 82,
-  cynophile: 80,
-  nyctophile: 78,
-  technophile: 76,
-  nephophile: 74,
-  francophile: 72,
-  anthophile: 72,
-  audiophile: 70,
-  dendrophile: 68,
-  anglophile: 68,
-  ornithophile: 68,
-  potamophile: 66,
-  neophile: 66,
-  geophile: 64,
-  oenophile: 64,
-  limnophile: 62,
-  hippophile: 60,
-  xenophile: 58,
-  cinephile: 84,
 };
 
 const moodMatchers: Array<{ mood: PhileMood; terms: string[] }> = [
@@ -88,7 +56,7 @@ function normalizePhile(path: string, frontmatter: Partial<PhileFrontmatter> & {
   }
 
   const slug = frontmatter.slug ?? slugFromPath;
-  const launchPriority = launchPriorityMap[slug] ?? 0;
+  const launchPriority = PHILE_LAUNCH_PRIORITY_MAP.get(slug) ?? 0;
 
   return {
     slug,

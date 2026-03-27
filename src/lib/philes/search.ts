@@ -1,42 +1,6 @@
 import type { PhileEntry as SearchPhileEntry } from '../search/types';
 import type { PhileEntry } from './content';
-
-const launchPriorityOrder = [
-  'pluviophile',
-  'bibliophile',
-  'selenophile',
-  'thalassophile',
-  'melophile',
-  'ailurophile',
-  'astraphile',
-  'astrophile',
-  'nephophile',
-  'heliophile',
-  'nyctophile',
-  'potamophile',
-  'limnophile',
-  'dendrophile',
-  'anthophile',
-  'geophile',
-  'cinephile',
-  'audiophile',
-  'logophile',
-  'technophile',
-  'anglophile',
-  'francophile',
-  'xenophile',
-  'neophile',
-  'oenophile',
-  'cynophile',
-  'ornithophile',
-  'hippophile',
-  'pyrophile',
-  'ombrophile'
-] as const;
-
-const priorityMap = new Map<string, number>(
-  launchPriorityOrder.map((slug, index) => [slug, 120 - index * 2])
-);
+import { PHILE_LAUNCH_PRIORITY_MAP } from '../../data/phile-launch-order';
 
 function toTitleCase(value: string): string {
   return value
@@ -61,7 +25,7 @@ export function toSearchPhile(entry: PhileEntry): SearchPhileEntry {
     moodKeywords: entry.data.moodKeywords,
     colorPalette: entry.data.colorPalette,
     heroStyle: entry.data.heroStyle,
-    launchPriority: priorityMap.get(entry.id) ?? 40,
+    launchPriority: PHILE_LAUNCH_PRIORITY_MAP.get(entry.id) ?? 40,
     etymology: entry.data.etymology,
     youMightBeIf: entry.data.youMightBeIf,
     relatedPhiles: entry.data.relatedPhiles ?? [],

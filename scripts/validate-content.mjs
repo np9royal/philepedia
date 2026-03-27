@@ -113,7 +113,7 @@ function readEntries() {
 const entries = readEntries();
 const errors = [];
 
-ensure(entries.length >= 30, `Expected at least 30 phile entries, found ${entries.length}.`, errors);
+ensure(entries.length >= 60, `Expected at least 60 phile entries, found ${entries.length}.`, errors);
 
 const bySlug = new Map();
 

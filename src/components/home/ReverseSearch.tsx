@@ -67,13 +67,13 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 	};
 
 	return (
-		<section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(15,16,24,0.88),rgba(8,9,14,0.94))] p-5 shadow-[0_30px_90px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:p-6">
+		<section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(15,16,24,0.88),rgba(8,9,14,0.94))] p-4 shadow-[0_30px_90px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:p-5 lg:p-6">
 			<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(122,160,255,0.14),transparent_22%),radial-gradient(circle_at_20%_100%,rgba(255,192,128,0.12),transparent_26%)]" />
 			<div className="relative">
-				<div className="mb-5 flex items-center justify-between gap-4">
+				<div className="mb-4 flex items-start justify-between gap-4 sm:mb-5">
 					<div>
 						<p className="text-[0.68rem] uppercase tracking-[0.42em] text-white/48">Reverse search</p>
-						<h2 className="mt-2 font-[family-name:var(--font-display)] text-2xl leading-none text-white sm:text-[2.3rem]">
+						<h2 className="mt-2 max-w-xl font-[family-name:var(--font-display)] text-2xl leading-[1.02] text-white sm:text-[2.15rem] lg:text-[2.25rem]">
 							Type what you love. The site will name the passion.
 						</h2>
 					</div>
@@ -97,11 +97,11 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 							}}
 							onKeyDown={onKeyDown}
 							placeholder="Search by what you love. Try rain, books, moon, ocean, cats, music."
-							className="h-16 w-full rounded-[1.35rem] border border-white/12 bg-black/35 px-5 text-[1rem] text-white placeholder:text-white/34 outline-none ring-0 transition duration-200 focus:border-white/22 focus:bg-black/50 focus:shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_0_40px_rgba(133,160,255,0.18)] sm:h-18 sm:text-[1.05rem]"
+							className="h-[3.75rem] w-full rounded-[1.35rem] border border-white/12 bg-black/35 px-4 text-[1rem] text-white placeholder:text-white/34 outline-none ring-0 transition duration-200 focus:border-white/22 focus:bg-black/50 focus:shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_0_40px_rgba(133,160,255,0.18)] sm:h-[4rem] sm:px-5 sm:text-[1.05rem]"
 						/>
 					</label>
 
-					<div className="flex flex-wrap items-center gap-2">
+					<div className="flex flex-wrap items-center gap-2.5">
 						{featuredSearches.map((term) => (
 							<button
 								key={term}
@@ -120,7 +120,7 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 					</div>
 				</div>
 
-				<div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/8 pt-4">
+				<div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/8 pt-3.5 sm:mt-5 sm:pt-4">
 					<p className="text-sm text-white/52">
 						{deferredQuery ? (
 							<>
@@ -128,7 +128,7 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 								<span className="text-white">{canonicalQuery || deferredQuery}</span>
 							</>
 						) : (
-							<>Featured launch philes, tuned for the first impression.</>
+							<>Featured philes from the living collection, tuned for the first impression.</>
 						)}
 					</p>
 					<a
@@ -140,7 +140,7 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 					</a>
 				</div>
 
-				<div className="mt-5 grid gap-3">
+				<div className="mt-4 grid gap-3 sm:mt-5">
 					{results.map((result, index) => {
 						const isActive = index === activeIndex;
 						const style = categoryStyles[result.category];
@@ -151,7 +151,7 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 								key={result.slug}
 								href={`/${result.slug}`}
 								className={[
-									"group relative overflow-hidden rounded-[1.4rem] border p-4 transition duration-200",
+									"group relative overflow-hidden rounded-[1.4rem] border p-3.5 transition duration-200 sm:p-4",
 									isActive
 										? "border-white/24 bg-white/10 shadow-[0_18px_50px_rgba(0,0,0,0.3)]"
 										: "border-white/8 bg-white/[0.03] hover:border-white/16 hover:bg-white/[0.06]"
@@ -164,7 +164,7 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 								/>
 								<div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_30%)] opacity-0 transition group-hover:opacity-100" />
 
-								<div className="relative flex items-start justify-between gap-4 pl-3">
+								<div className="relative flex items-start justify-between gap-4 pl-2.5 sm:pl-3">
 									<div className="min-w-0">
 										<div className="flex flex-wrap items-center gap-2">
 											<span
@@ -177,7 +177,7 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 												{result.reason}
 											</span>
 										</div>
-										<h3 className="mt-3 font-[family-name:var(--font-display)] text-2xl text-white transition group-hover:translate-x-[0.08rem] sm:text-[2.15rem]">
+										<h3 className="mt-2.5 font-[family-name:var(--font-display)] text-2xl text-white transition group-hover:translate-x-[0.08rem] sm:text-[2.05rem]">
 											{result.name}
 										</h3>
 										<p className="mt-2 max-w-xl text-sm leading-6 text-white/66">
@@ -193,7 +193,7 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 									</div>
 								</div>
 
-								<div className="relative mt-4 flex flex-wrap gap-2 pl-3">
+								<div className="relative mt-4 flex flex-wrap gap-2 pl-2.5 sm:pl-3">
 									{result.tags.slice(0, 3).map((tag) => (
 										<span
 											key={tag}
@@ -204,7 +204,7 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 									))}
 								</div>
 								{featured && (
-									<div className="relative mt-3 pl-3 text-[0.76rem] uppercase tracking-[0.24em] text-white/38">
+									<div className="relative mt-3 pl-2.5 text-[0.76rem] uppercase tracking-[0.24em] text-white/38 sm:pl-3">
 										Matched to {featured.slug}
 									</div>
 								)}
@@ -213,7 +213,7 @@ export default function ReverseSearch({ initialQuery = "" }: ReverseSearchProps)
 					})}
 				</div>
 
-				<div className="mt-5 flex items-center justify-between gap-4 border-t border-white/8 pt-4 text-xs uppercase tracking-[0.24em] text-white/38">
+				<div className="mt-4 flex items-center justify-between gap-4 border-t border-white/8 pt-3.5 text-xs uppercase tracking-[0.24em] text-white/38 sm:mt-5 sm:pt-4">
 					<span>{isPending ? "Refining search..." : "Keyboard-ready"}</span>
 					<span>Enter opens the active result</span>
 				</div>

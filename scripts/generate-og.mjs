@@ -82,7 +82,7 @@ await writePng(
     eyebrow: 'THE LIVING ENCYCLOPEDIA OF PASSIONS',
     title: 'Philepedia',
     subtitle: 'Search what you love. Find the word that names it.',
-    footer: '30 FLAGSHIP PHILES',
+    footer: '60 FLAGSHIP PHILES',
     palette: ['#0b1020', '#3d5af1', '#d3b06a']
   }),
   path.join(OUTPUT_DIR, 'site.png')
