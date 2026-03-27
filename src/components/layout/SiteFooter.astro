@@ -1,0 +1,23 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="relative z-10 mt-16 border-t border-white/10 bg-[linear-gradient(180deg,transparent,rgba(255,255,255,0.02))]">
+  <div class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-6 py-8 text-sm text-[var(--phile-muted)] sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10">
+    <p class="max-w-2xl">
+      <span class="text-[var(--phile-ink)]">Philepedia</span> is a crafted archive of passions, mood, and meaning.
+    </p>
+
+    <div class="flex flex-col gap-1 text-right sm:flex-row sm:items-center sm:gap-3">
+      <p>Copyright {year}. All rights reserved.</p>
+      <a
+        href="https://x.com/np9royal"
+        target="_blank"
+        rel="noreferrer"
+        class="font-medium text-[var(--phile-ink)] underline decoration-[rgba(211,176,106,0.55)] underline-offset-4 transition hover:decoration-[rgba(211,176,106,1)]"
+      >
+        Developed by Naveen Purimittla
+      </a>
+    </div>
+  </div>
+</footer>

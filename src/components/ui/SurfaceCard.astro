@@ -1,0 +1,42 @@
+---
+interface Props {
+  as?: 'article' | 'div' | 'section' | 'a';
+  href?: string;
+  accent?: string;
+  class?: string;
+}
+
+const {
+  as: Tag = 'article',
+  href,
+  accent = 'rgba(211, 176, 106, 0.72)',
+  class: className = ''
+} = Astro.props as Props;
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class={`phile-card phile-card-hover group block ${className}`}
+      style={`--surface-accent:${accent};`}
+    >
+      <div class="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--surface-accent),transparent)] opacity-80"></div>
+      <div class="absolute -left-16 top-4 h-36 w-36 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14),transparent_68%)] opacity-0 blur-2xl transition duration-300 group-hover:opacity-100"></div>
+      <div class="relative p-6 sm:p-7">
+        <slot />
+      </div>
+    </a>
+  ) : (
+    <Tag
+      class={`phile-card phile-card-hover group block ${className}`}
+      style={`--surface-accent:${accent};`}
+    >
+      <div class="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--surface-accent),transparent)] opacity-80"></div>
+      <div class="absolute -left-16 top-4 h-36 w-36 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14),transparent_68%)] opacity-0 blur-2xl transition duration-300 group-hover:opacity-100"></div>
+      <div class="relative p-6 sm:p-7">
+        <slot />
+      </div>
+    </Tag>
+  )
+}

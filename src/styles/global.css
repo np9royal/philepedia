@@ -1,0 +1,243 @@
+@import "tailwindcss";
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/instrument-sans";
+
+:root {
+  color-scheme: dark;
+  --phile-bg: #07070c;
+  --phile-bg-soft: #0e1018;
+  --phile-surface: rgba(16, 18, 28, 0.76);
+  --phile-surface-strong: rgba(23, 26, 39, 0.9);
+  --phile-border: rgba(255, 255, 255, 0.12);
+  --phile-border-strong: rgba(255, 255, 255, 0.18);
+  --phile-ink: #f4efe6;
+  --phile-ink-soft: rgba(244, 239, 230, 0.76);
+  --phile-muted: rgba(244, 239, 230, 0.56);
+  --phile-brass: #d3b06a;
+  --phile-brass-soft: rgba(211, 176, 106, 0.2);
+  --phile-blue: #86b7ff;
+  --phile-shadow: 0 26px 90px rgba(0, 0, 0, 0.42);
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-body: "Instrument Sans Variable", "Inter", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--phile-ink);
+  background:
+    radial-gradient(circle at top left, rgba(211, 176, 106, 0.1), transparent 28%),
+    radial-gradient(circle at 88% 12%, rgba(134, 183, 255, 0.12), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(125, 89, 161, 0.14), transparent 30%),
+    linear-gradient(180deg, #090910 0%, #07070c 44%, #050509 100%);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::before {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.06), transparent 24%),
+    radial-gradient(circle at 80% 0%, rgba(211, 176, 106, 0.08), transparent 22%),
+    radial-gradient(circle at 85% 78%, rgba(134, 183, 255, 0.08), transparent 20%);
+  filter: blur(6px);
+  opacity: 0.9;
+}
+
+body::after {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 44px 44px, 44px 44px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.72), transparent 82%);
+  opacity: 0.16;
+}
+
+::selection {
+  color: #090910;
+  background: rgba(211, 176, 106, 0.92);
+}
+
+a {
+  color: inherit;
+  text-decoration-color: rgba(211, 176, 106, 0.6);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.08em;
+}
+
+a:hover {
+  text-decoration-color: rgba(211, 176, 106, 1);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.phile-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+p,
+li,
+dd,
+dt,
+label,
+input,
+textarea,
+button {
+  font-family: var(--font-body);
+}
+
+:focus-visible {
+  outline: 2px solid rgba(211, 176, 106, 0.9);
+  outline-offset: 3px;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+.phile-skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 50;
+  transform: translateY(-180%);
+  border: 1px solid var(--phile-border-strong);
+  border-radius: 9999px;
+  background: rgba(9, 9, 16, 0.96);
+  padding: 0.75rem 1rem;
+  color: var(--phile-ink);
+  transition: transform 180ms ease;
+}
+
+.phile-skip-link:focus {
+  transform: translateY(0);
+}
+
+.phile-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.phile-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+.phile-shell-frame {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 12%);
+}
+
+.phile-prose {
+  color: var(--phile-ink-soft);
+  line-height: 1.75;
+}
+
+.phile-prose strong {
+  color: var(--phile-ink);
+}
+
+.phile-ink-soft {
+  color: var(--phile-ink-soft);
+}
+
+.phile-muted {
+  color: var(--phile-muted);
+}
+
+.phile-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(211, 176, 106, 0.92);
+}
+
+.phile-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+}
+
+.phile-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--phile-border);
+  border-radius: 1.5rem;
+  background: var(--phile-surface);
+  box-shadow: var(--phile-shadow);
+  backdrop-filter: blur(22px);
+}
+
+.phile-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 28%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 40%);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.phile-card-hover {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease;
+}
+
+.phile-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(211, 176, 106, 0.32);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.52);
+}
+
+.phile-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .phile-grid {
+    gap: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

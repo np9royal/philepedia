@@ -1,0 +1,421 @@
+---
+import { render } from 'astro:content';
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/instrument-sans';
+import '../styles/global.css';
+
+import CloudflareAnalytics from '../components/analytics/CloudflareAnalytics.astro';
+import PhilePaletteSwatches from '../components/phile/PhilePaletteSwatches.astro';
+import PhileRelatedCards from '../components/phile/PhileRelatedCards.astro';
+import PhileSectionHeading from '../components/phile/PhileSectionHeading.astro';
+import { getRenderablePhiles } from '../lib/philes/content';
+import { getRelatedPhiles } from '../lib/philes/related';
+import {
+  buildDefinedTermJsonLd,
+  getAbsoluteUrl,
+  getPhileCanonicalPath,
+  getPhileDescription,
+  getPhileTitle,
+  serializeJsonLd
+} from '../lib/philes/seo';
+import { isReservedPhileSlug, normalizePhileSlug } from '../lib/philes/reserved';
+
+export async function getStaticPaths() {
+  const philes = await getRenderablePhiles();
+
+  return philes.map((entry) => ({
+    params: { slug: entry.id }
+  }));
+}
+
+const slug = normalizePhileSlug(Astro.params.slug ?? '');
+
+if (!slug || isReservedPhileSlug(slug)) {
+  throw new Error(`Invalid phile slug "${slug}".`);
+}
+
+const philes = await getRenderablePhiles();
+const phile = philes.find((entry) => entry.id === slug);
+
+if (!phile) {
+  throw new Error(`Unknown phile slug "${slug}".`);
+}
+
+if (phile.data.slug !== phile.id) {
+  throw new Error(`Phile "${phile.id}" has mismatched frontmatter slug "${phile.data.slug}".`);
+}
+
+const related = getRelatedPhiles(phile, philes, 4);
+const { Content } = await render(phile);
+
+const title = getPhileTitle(phile);
+const description = getPhileDescription(phile);
+const canonicalPath = getPhileCanonicalPath(phile);
+const canonicalUrl = getAbsoluteUrl(canonicalPath, Astro.site);
+const ogImage = getAbsoluteUrl(`/og/${phile.id}.png`, Astro.site);
+const jsonLd = buildDefinedTermJsonLd(phile, canonicalUrl, Astro.site);
+
+const [ink, primary, secondary, mist, glow] = phile.data.colorPalette;
+const heroVariables = [
+  `--phile-ink:${ink}`,
+  `--phile-primary:${primary}`,
+  `--phile-secondary:${secondary}`,
+  `--phile-mist:${mist}`,
+  `--phile-glow:${glow}`
+].join(';');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content={primary} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{title}</title>
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={serializeJsonLd(jsonLd)} />
+  </head>
+  <body class="bg-[#050608] text-[#f4ede1]">
+    <main class="phile-shell relative isolate min-h-screen overflow-hidden">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <div
+          class="orb absolute left-[-8rem] top-[-6rem] h-[22rem] w-[22rem] rounded-full blur-3xl"
+          style={`background: radial-gradient(circle, ${primary}33 0%, transparent 68%)`}
+        />
+        <div
+          class="orb delay absolute right-[-7rem] top-[8rem] h-[20rem] w-[20rem] rounded-full blur-3xl"
+          style={`background: radial-gradient(circle, ${secondary}2e 0%, transparent 68%)`}
+        />
+      </div>
+
+      <section class="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-6 sm:px-8 sm:py-8 lg:px-10">
+        <header class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
+          <a href="/" class="text-sm uppercase tracking-[0.45em] text-white/76 transition hover:text-white">
+            Philepedia
+          </a>
+
+          <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-white/42">
+            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
+              {phile.data.category}
+            </span>
+            <a href="/explore" class="transition hover:text-white">
+              Explore
+            </a>
+          </div>
+        </header>
+
+        <div class="grid gap-8 lg:grid-cols-[minmax(0,1.45fr)_minmax(20rem,0.85fr)]">
+          <article class="space-y-8">
+            <section
+              class="relative overflow-hidden rounded-[2rem] border border-white/10 px-7 py-8 shadow-[0_40px_140px_rgba(0,0,0,0.34)] sm:px-10 sm:py-10"
+              style={heroVariables}
+            >
+              <div
+                aria-hidden="true"
+                class="absolute inset-0 -z-10 opacity-90"
+                style={`background:
+                  linear-gradient(145deg, color-mix(in oklab, ${primary} 22%, transparent), transparent 44%),
+                  radial-gradient(circle at 20% 20%, ${glow}14 0%, transparent 35%),
+                  linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));`}
+              />
+
+              <p class="text-[0.7rem] uppercase tracking-[0.4em] text-white/40">
+                /{phile.id}
+              </p>
+
+              <div class="mt-5 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.32em] text-white/42">
+                <span class="rounded-full border border-white/10 bg-white/6 px-3 py-1.5">
+                  {phile.data.heroStyle}
+                </span>
+                <span class="rounded-full border border-white/10 bg-white/6 px-3 py-1.5">
+                  {phile.data.pronunciation}
+                </span>
+              </div>
+
+              <h1
+                class="mt-6 max-w-4xl text-5xl font-medium tracking-[-0.06em] text-white sm:text-7xl lg:text-[5.6rem]"
+                style="font-family: var(--font-display);"
+              >
+                {phile.data.name}
+              </h1>
+
+              <p class="mt-5 max-w-3xl text-lg leading-8 text-white/78 sm:text-xl">
+                {phile.data.shortDescription}
+              </p>
+
+              <p class="mt-7 max-w-4xl text-xl leading-9 text-white/88 sm:text-2xl">
+                {phile.data.definition}
+              </p>
+
+              <dl class="mt-8 grid gap-4 sm:grid-cols-3">
+                <div class="rounded-2xl border border-white/10 bg-black/12 p-4">
+                  <dt class="text-[0.7rem] uppercase tracking-[0.35em] text-white/34">Category</dt>
+                  <dd class="mt-2 text-sm text-white/76">{phile.data.category}</dd>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-black/12 p-4">
+                  <dt class="text-[0.7rem] uppercase tracking-[0.35em] text-white/34">Hero style</dt>
+                  <dd class="mt-2 text-sm text-white/76">{phile.data.heroStyle}</dd>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-black/12 p-4">
+                  <dt class="text-[0.7rem] uppercase tracking-[0.35em] text-white/34">References</dt>
+                  <dd class="mt-2 text-sm text-white/76">{phile.data.references.length} sources</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section class="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-7 sm:p-8">
+              <PhileSectionHeading
+                eyebrow="Etymology"
+                title="Roots and resonance"
+                description="The word is treated as a living object, not a dictionary line item."
+              />
+
+              <div class="mt-6 grid gap-4 md:grid-cols-2">
+                {phile.data.etymology.map((root, index) => (
+                  <article
+                    class="rounded-2xl border border-white/10 bg-black/12 p-5 transition hover:border-white/20"
+                  >
+                    <p class="text-[0.68rem] uppercase tracking-[0.35em] text-white/36">
+                      Root 0{index + 1}
+                    </p>
+                    <h3 class="mt-2 text-lg font-medium text-white">{root.word}</h3>
+                    <p class="mt-1 text-sm uppercase tracking-[0.2em] text-white/44">
+                      {root.language}
+                    </p>
+                    <p class="mt-4 text-sm leading-7 text-white/72">{root.meaning}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section class="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-7 sm:p-8">
+              <PhileSectionHeading
+                eyebrow="Essay"
+                title="Long-form context"
+                description="Any markdown body authored for this phile appears here."
+              />
+
+              <div class="phile-prose mt-6 space-y-4 text-[0.98rem] leading-8 text-white/72">
+                <Content />
+              </div>
+            </section>
+
+            <section class="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-7 sm:p-8">
+              <PhileSectionHeading
+                eyebrow="Resonance"
+                title={`You might be a ${phile.data.name} if...`}
+                description="Relatable cues tuned for sharing, scanning, and self-recognition."
+              />
+
+              <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+                {phile.data.youMightBeIf.map((statement) => (
+                  <li class="rounded-2xl border border-white/10 bg-black/12 px-4 py-4 text-sm leading-7 text-white/76">
+                    {statement}
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section class="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-7 sm:p-8">
+              <PhileSectionHeading
+                eyebrow="Palette"
+                title="Signature colors"
+                description="The color system is bound to the meaning of the phile."
+              />
+
+              <div class="mt-6">
+                <PhilePaletteSwatches
+                  palette={phile.data.colorPalette}
+                  heroStyle={phile.data.heroStyle}
+                  category={phile.data.category}
+                />
+              </div>
+            </section>
+
+            <section class="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-7 sm:p-8">
+              <PhileSectionHeading
+                eyebrow="Related"
+                title="Continue the trail"
+                description="Manual curation leads, then weighted fallback fills any gaps."
+              />
+
+              <div class="mt-6">
+                <PhileRelatedCards philes={related} />
+              </div>
+            </section>
+          </article>
+
+          <aside class="space-y-6 lg:sticky lg:top-8 lg:self-start">
+            <section class="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6">
+              <h2 class="text-sm uppercase tracking-[0.35em] text-white/40">Quick facts</h2>
+
+              <dl class="mt-5 space-y-4 text-sm">
+                <div class="flex items-start justify-between gap-4 border-b border-white/8 pb-3">
+                  <dt class="text-white/40">Slug</dt>
+                  <dd class="text-right text-white/82">{phile.id}</dd>
+                </div>
+                <div class="flex items-start justify-between gap-4 border-b border-white/8 pb-3">
+                  <dt class="text-white/40">Status</dt>
+                  <dd class="text-right text-white/82">{phile.data.status}</dd>
+                </div>
+                <div class="flex items-start justify-between gap-4 border-b border-white/8 pb-3">
+                  <dt class="text-white/40">Tags</dt>
+                  <dd class="text-right text-white/82">{phile.data.tags.length}</dd>
+                </div>
+                <div class="flex items-start justify-between gap-4 border-b border-white/8 pb-3">
+                  <dt class="text-white/40">Aliases</dt>
+                  <dd class="text-right text-white/82">{phile.data.tagAliases.length}</dd>
+                </div>
+                <div class="flex items-start justify-between gap-4">
+                  <dt class="text-white/40">Related links</dt>
+                  <dd class="text-right text-white/82">{related.length}</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section class="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6">
+              <h2 class="text-sm uppercase tracking-[0.35em] text-white/40">Tags</h2>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {phile.data.tags.map((tag) => (
+                  <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.28em] text-white/46">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </section>
+
+            <section class="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-6">
+              <h2 class="text-sm uppercase tracking-[0.35em] text-white/40">References</h2>
+              <ul class="mt-4 space-y-3">
+                {phile.data.references.map((reference) => (
+                  <li>
+                    <a
+                      href={reference.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      class="block rounded-2xl border border-white/10 bg-black/12 px-4 py-3 text-sm leading-7 text-white/80 transition hover:border-white/20 hover:bg-white/6 hover:text-white"
+                    >
+                      {reference.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </aside>
+        </div>
+
+        <footer class="flex flex-col gap-3 border-t border-white/10 py-6 text-sm text-white/46 sm:flex-row sm:items-center sm:justify-between">
+          <p>Developed by Naveen Purimittla</p>
+          <a
+            href="https://x.com/np9royal"
+            target="_blank"
+            rel="noreferrer"
+            class="transition hover:text-white"
+          >
+            x.com/np9royal
+          </a>
+        </footer>
+      </section>
+    </main>
+    <CloudflareAnalytics />
+
+    <style is:global>
+      :root {
+        color-scheme: dark;
+        --font-display: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+        --font-body: 'Instrument Sans Variable', 'Instrument Sans', system-ui, sans-serif;
+      }
+
+      html {
+        background: #050608;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: var(--font-body);
+        background:
+          radial-gradient(circle at 15% 5%, rgba(255, 222, 173, 0.14), transparent 30%),
+          radial-gradient(circle at 85% 15%, rgba(140, 188, 255, 0.14), transparent 26%),
+          radial-gradient(circle at 50% 100%, rgba(214, 165, 255, 0.09), transparent 30%),
+          #050608;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-display);
+      }
+
+      .phile-shell::before {
+        content: '';
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 4px 4px;
+        opacity: 0.22;
+        mix-blend-mode: soft-light;
+      }
+
+      .phile-prose :where(p) {
+        margin: 0 0 1rem;
+      }
+
+      .phile-prose :where(ul) {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+
+      .phile-prose :where(li) {
+        margin: 0.45rem 0;
+      }
+
+      .phile-prose :where(h2, h3) {
+        margin: 1.7rem 0 0.8rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .orb {
+          animation: float 16s ease-in-out infinite;
+        }
+
+        .orb.delay {
+          animation-delay: -8s;
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+
+        50% {
+          transform: translate3d(0, -14px, 0) scale(1.04);
+        }
+      }
+    </style>
+  </body>
+</html>

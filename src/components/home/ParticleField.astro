@@ -1,0 +1,95 @@
+---
+import { particleWords } from "./phileSeeds";
+---
+
+<div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true" data-phile-particles>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_transparent_32%),radial-gradient(circle_at_20%_20%,_rgba(142,170,255,0.22),_transparent_28%),radial-gradient(circle_at_80%_20%,_rgba(255,195,130,0.14),_transparent_24%),radial-gradient(circle_at_50%_80%,_rgba(85,214,190,0.12),_transparent_30%)] opacity-90"></div>
+	<div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),transparent_18%,transparent_82%,rgba(255,255,255,0.04))]"></div>
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0,rgba(7,8,13,0.18)_62%,rgba(7,8,13,0.82)_100%)]"></div>
+
+	{particleWords.map((particle) => (
+		<span
+			class="home-particle absolute select-none rounded-full border border-white/10 bg-white/6 px-3 py-1 font-medium tracking-[0.26em] text-white/70 shadow-[0_0_30px_rgba(255,255,255,0.08)] backdrop-blur-md"
+			style={`left:${particle.x}%; top:${particle.y}%; --delay:${particle.delay}s; --duration:${particle.duration}s; --size:${particle.size};`}
+		>
+			{particle.label}
+		</span>
+	))}
+</div>
+
+<script is:inline>
+	const field = document.querySelector("[data-phile-particles]");
+	const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+	if (field && !reduceMotion) {
+		let frame = 0;
+
+		const setPointer = (clientX, clientY) => {
+			const x = ((clientX / window.innerWidth) - 0.5) * 100;
+			const y = ((clientY / window.innerHeight) - 0.5) * 100;
+
+			cancelAnimationFrame(frame);
+			frame = requestAnimationFrame(() => {
+				field.style.setProperty("--mx", `${x.toFixed(2)}px`);
+				field.style.setProperty("--my", `${y.toFixed(2)}px`);
+			});
+		};
+
+		const resetPointer = () => {
+			field.style.setProperty("--mx", "0px");
+			field.style.setProperty("--my", "0px");
+		};
+
+		window.addEventListener(
+			"pointermove",
+			(event) => setPointer(event.clientX, event.clientY),
+			{ passive: true }
+		);
+		window.addEventListener("pointerleave", resetPointer);
+		window.addEventListener("blur", resetPointer);
+	}
+</script>
+
+<style>
+	.home-particle {
+		font-size: var(--size);
+		letter-spacing: 0.24em;
+		text-transform: uppercase;
+		transform: translate3d(calc(var(--mx, 0px) * 0.02), calc(var(--my, 0px) * 0.02), 0)
+			translate3d(0, 0, 0);
+		animation:
+			home-float var(--duration) ease-in-out var(--delay) infinite alternate,
+			home-glow 8s ease-in-out var(--delay) infinite;
+	}
+
+	@keyframes home-float {
+		from {
+			transform: translate3d(calc(var(--mx, 0px) * 0.02), calc(var(--my, 0px) * 0.02), 0)
+				translate3d(0, 0, 0);
+		}
+
+		to {
+			transform: translate3d(calc(var(--mx, 0px) * 0.02 + 14px), calc(var(--my, 0px) * 0.02 - 18px), 0)
+				translate3d(0, 0, 0);
+		}
+	}
+
+	@keyframes home-glow {
+		0%,
+		100% {
+			opacity: 0.46;
+			filter: blur(0px);
+		}
+
+		50% {
+			opacity: 0.92;
+			filter: blur(0.4px);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.home-particle {
+			animation: none;
+		}
+	}
+</style>
